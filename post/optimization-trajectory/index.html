@@ -1,0 +1,1464 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Naga Sai Pranay Modukuru">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="The purpose of this post is to demonstrate the importance of Initialization">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://pranaymodukuru.github.io/post/optimization-trajectory/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#2962ff">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="https://pranaymodukuru.github.io/post/optimization-trajectory/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@pranaymns">
+  <meta property="twitter:creator" content="@pranaymns">
+  
+  <meta property="og:site_name" content="Pranay Modukuru">
+  <meta property="og:url" content="https://pranaymodukuru.github.io/post/optimization-trajectory/">
+  <meta property="og:title" content="Effect of Initialization on Optimization Trajectory in 2D | Pranay Modukuru">
+  <meta property="og:description" content="The purpose of this post is to demonstrate the importance of Initialization"><meta property="og:image" content="https://pranaymodukuru.github.io/post/optimization-trajectory/featured.png">
+  <meta property="twitter:image" content="https://pranaymodukuru.github.io/post/optimization-trajectory/featured.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-03-05T01:53:52&#43;01:00">
+    
+    <meta property="article:modified_time" content="2020-03-05T01:53:52&#43;01:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://pranaymodukuru.github.io/post/optimization-trajectory/"
+  },
+  "headline": "Effect of Initialization on Optimization Trajectory in 2D",
+  
+  "image": [
+    "https://pranaymodukuru.github.io/post/optimization-trajectory/featured.png"
+  ],
+  
+  "datePublished": "2020-03-05T01:53:52+01:00",
+  "dateModified": "2020-03-05T01:53:52+01:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Pranay Modukuru"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pranay Modukuru",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pranaymodukuru.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "The purpose of this post is to demonstrate the importance of Initialization"
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>Effect of Initialization on Optimization Trajectory in 2D | Pranay Modukuru</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Pranay Modukuru</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Pranay Modukuru</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/cv.pdf"><span>CV</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+      <li class="nav-item dropdown theme-dropdown">
+        <a href="#" class="nav-link js-theme-selector" data-toggle="dropdown" aria-haspopup="true">
+          <i class="fas fa-palette" aria-hidden="true"></i>
+        </a>
+        <div class="dropdown-menu">
+          <a href="#" class="dropdown-item js-set-theme-light">
+            <span>Light</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-dark">
+            <span>Dark</span>
+          </a>
+          <a href="#" class="dropdown-item js-set-theme-auto">
+            <span>Automatic</span>
+          </a>
+        </div>
+      </li>
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="article-container pt-3">
+  <h1>Effect of Initialization on Optimization Trajectory in 2D</h1>
+
+  
+  <p class="page-subtitle">Visualizing how Initialization effects optimization</p>
+  
+
+  
+
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+  
+  <span><a href="/authors/pranay-modukuru/">Pranay Modukuru</a></span>
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    Mar 5, 2020
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    4 min read
+  </span>
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <a href="/post/optimization-trajectory/#disqus_thread"></a>
+  
+
+  
+  
+
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="btn-links mb-3">
+  
+  <a class="btn btn-outline-primary my-1" href="https://medium.com/datadriveninvestor/effect-of-initialization-on-optimization-trajectory-129746a2bb9d?source=friends_link&amp;sk=918a3508f94da3e3da25b5b2eaf52356" target="_blank" rel="noopener">Go to Project Site</a>
+  
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+<div class="article-header article-container featured-image-wrapper mt-4 mb-4" style="max-width: 698px; max-height: 390px;">
+  <div style="position: relative">
+    <img src="/post/optimization-trajectory/featured.png" alt="" class="featured-image">
+    
+  </div>
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      <p>
+<a href="https://medium.com/datadriveninvestor/effect-of-initialization-on-optimization-trajectory-129746a2bb9d?source=friends_link&amp;sk=918a3508f94da3e3da25b5b2eaf52356" target="_blank" rel="noopener">View post</a> on Medium.</p>
+<!-- ### The Optimization Problem
+In simple words, finding a minimum value for a given equation is considered as optimization. This has many applications in real life - finding the fastest path when traveling from one place to other, job shop scheduling, air traffic management etc,. The optimization has been the back bone of machine learning, where the algorithms are expected to extract knowledge from huge volumes of data.
+
+Optimization plays a major role Neural Networks where there are millions of parameters and the goal is to find the right set of parameters to correctly represent the data. There has been a lot of research in this field and many algorithms have been developed for effective optimization. Even though the performance of the optimizer has improved a lot, there is another problem that the optimization depends upon i.e. the initial point. The trajectory of optimization is largely dependant on the initialisation. This has been studied and numerous initialization techniques have been proposed to effectively exploit the power of optimization algorithms.
+
+In this post we are going to see how the initialization can affect the performance of some of the optimization algorithms until day. Although, we are using a two dimensional problem here since it is easy to visualize, the initialization problem becomes more prevalent when there are millions of parameters (Neural Networks).
+
+
+### The Task
+Initialize x, y and use gradient descent algorithms to find the optimal values of x and y such that the value of the Beale function is zero (or as low as possible).
+
+
+### A brief introduction to optimization algorithms
+We are going to consider three popular optimization algorithms, since we are more concerned about the initialization these will be sufficient for our analysis.
+1. **Stochastic Gradient Descent** - The stochastic gradient descent (SGD) algorithm performs one update at a time computing gradients at each step.
+2. **Momentum** - Overcomes the difficulty of slow updates of stochastic gradient descent by considering the momentum of gradients over a period of time.
+3. **Adam** - Considered to be the most popular optimization algorithm. It takes into consideration the first and second moments i.e. the exponentially decaying average of past gradients and squared gradients.
+
+A more detailed explanation about gradient descent optimization algorithms, please read this [post](https://ruder.io/optimizing-gradient-descent/) by [Sebastian Ruder](https://ruder.io/).
+
+###### Importing required libraries
+We are going to use the autograd functionality of [PyTorch](https://pytorch.org/) for getting the gradients and matplotlib for plotting the trajectories.
+
+```Python
+import torch
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.colors import LogNorm
+
+import warnings
+warnings.filterwarnings("ignore")
+```
+
+### The Beale Function
+$$
+f(x, y) =  (1.5 - x + xy)^2 + (2.25 - x + xy^2)^2 +(2.625 - x + xy^3)^2\tag{1}
+$$
+
+* Beale function is a multimodal non-convex continuous function defined in two dimensions.
+* It is usually evaluated in the range $(x, y) \in [-4.5, 4.5]$.
+* The function has only one global minimum at $(x, y) = (3, 0.5)$.
+
+The [Beale](https://www.sfu.ca/~ssurjano/beale.html) Function, a two dimentional function is chosen to make visualizations simple.
+###### Visualizing the Beale Function
+As the Beale function is a two variable function ranging between -4.5 and 4.5, we can generate a meshgrid using numpy to pass all the possible values of x and y to the function. This enables us to have the output of the beale's function at each possible point, we can use these outputs to visualize the function in a contour plot.
+
+As we are relating the optimization problem with neural networks, we will refer to **(x, y)** as **(w1 , w2)**. Also, when using a neural network we refer to objective function as a loss function and the output of the function as loss. In this case, we refer to the Beale's function as **loss function** and the outputs as **losses**
+
+
+```python
+# Defining function
+f  = lambda x, y: (1.5 - x + x*y)**2 + (2.25 - x + x*y**2)**2 + (2.625 - x + x*y**3)**2
+
+# Defining the range of w1 and w2, step size
+w1_min, w1_max, w1_step = -4.5, 4.5, .2
+w2_min, w2_max, w2_step = -4.5, 4.5, .2
+
+# Global minima of the function
+minima_ = [3, 0.5]
+
+# generating meshgrid
+w1, w2 = np.meshgrid(np.arange(w1_min, w1_max + w1_step, w1_step),
+                     np.arange(w2_min, w2_max + w2_step, w2_step))
+losses = f(w1, w2)
+```
+We will now plot the losses on a contour plot with the following code.
+
+```python
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.contour(w1, w2, losses, levels=np.logspace(0, 5, 35),
+                    norm=LogNorm(), cmap=plt.cm.jet, alpha = 0.8)
+ax.plot(*minima_, 'r*', color='r',
+                    markersize=10, alpha=0.7, label='minima')
+ax.set_xlabel('w1')
+ax.set_ylabel('w2')
+ax.set_xlim((w1_min, w1_max))
+ax.set_ylim((w2_min, w2_max))
+ax.legend(bbox_to_anchor=(1.2, 1.))
+ax.set_title("Beale Function")
+fig.tight_layout(rect=[0, 0.03, 1, 0.95])
+```
+
+###### Output
+As seen in the image, blue region indicates lower values and the red region is higher values of the Beale's function. The minima (3, 0.5) is indicated with a star.
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<figure >
+
+
+  <a data-fancybox="" href="/img/optimization-trajectory-visualization/beale_func.png" >
+
+
+  <img src="/img/optimization-trajectory-visualization/beale_func.png" alt=""  >
+</a>
+
+
+
+</figure>
+
+
+###### Setting up Parameters
+As we are using PyTorch, we need to have parameters that are to be optimized put into a ```nn.Module``` class. The ```__init__()``` takes (x, y) as inputs to initialize the parameters (w1, w2).  Also, we are going to write the beale's equation in the forward function.
+
+
+```python
+class Net_Beale(torch.nn.Module):
+    def __init__(self, x, y):
+        super(Net_Beale, self).__init__()
+        self.w1 = torch.nn.Parameter(torch.tensor([x]))
+        self.w2 = torch.nn.Parameter(torch.tensor([y]))
+
+    def forward(self):
+        # Beale Function Equation
+        a = (1.5 - self.w1 + self.w1*self.w2)**2
+        b = (2.25 - self.w1 + self.w1*self.w2**2)**2
+        c = (2.625 - self.w1 + self.w1*self.w2**3)**2
+        return a+b+c
+```
+###### Optimizing and Saving Trajectory
+Since we are interested in tracking the path of the optimization, we need to collect the parameters at each step/desired steps and save them for plotting.
+
+The below function initialises the parameters of the network, initializes an optimizer and runs the optimization for the specified number of steps while collecting the path of the parameters.
+
+
+```python
+def get_trajectory(x, y, optim, lr, epochs, interval=1):
+
+    # Initialize Network
+    net = Net_Beale(x,y)
+
+    # Initialize Optimizer
+    if optim == "sgd":
+        optim = torch.optim.SGD(net.parameters(), lr)
+    elif optim == "mom":
+        optim = torch.optim.SGD(net.parameters(), lr, momentum=0.9)
+    elif optim == "adam":
+        optim = torch.optim.Adam(net.parameters(), lr)
+
+    # Initialize Trackers
+    w_1s = []
+    w_2s = []
+
+    # Run Optimization
+    for i in range(epochs):
+        optim.zero_grad()
+        o = net()
+        o.backward()
+
+        if i % interval == 0:
+            # Append current w1 and w2 to trackers
+            w_1s.append(net.w1.item())
+            w_2s.append(net.w2.item())
+        optim.step()
+
+    w_1s.append(net.w1.item())
+    w_2s.append(net.w2.item())
+
+    # Join w1's and w2's into one array
+    trajectory = np.array([w_1s, w_2s])   
+
+    return trajectory
+```
+
+###### Comparison between trajectories
+After collecting the paths of parameters with different algorithms, we are going to plot them on the Beale Function Contour plot. The below function takes in the initial position, list of optimizers and corresponding learning rates and epochs and plots the trajectories of algorithms with specified settings.  
+
+```python
+def compare_trajectories(x, y, epochs, optims, lrs):
+
+    colors = ['k', 'g', 'b', 'r', 'y', 'c', 'm']
+    trajectories = []
+    names = []
+    # Loop on all optimizers in list
+    for ep, optim, lr in zip(epochs, optims, lrs):
+        trajectory = get_trajectory(float(x), float(y), optim=optim, lr=lr, epochs=ep)
+        names.append(optim)
+        trajectories.append(trajectory)
+
+    # Plot the Contour plot of Beale Function and trajectories of optimizers
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.contour(w1, w2, losses, levels=np.logspace(0, 5, 35),
+                        norm=LogNorm(), cmap=plt.cm.jet, alpha = 0.5)
+
+    for i, trajectory in enumerate(trajectories):
+        ax.quiver(trajectory[0,:-1], trajectory[1,:-1], trajectory[0,1:]-trajectory[0,:-1],
+                  trajectory[1,1:]-trajectory[1,:-1], scale_units='xy', angles='xy', scale=1,
+                  color=colors[i], label=names[i], alpha=0.8)
+
+    start_ =[x,y]
+    ax.plot(*start_, 'r*', color='k',markersize=10, alpha=0.7, label='start')
+    ax.plot(*minima_, 'r*', color='r',markersize=10, alpha=0.7, label='minima')
+    ax.set_xlabel('w1')
+    ax.set_ylabel('w2')
+    ax.set_xlim((w1_min, w1_max))
+    ax.set_ylim((w2_min, w2_max))
+    ax.set_title("Initial point - ({},{})".format(x,y))
+    ax.legend(bbox_to_anchor=(1.2, 1.))
+    fig.suptitle("Optimization Trajectory")
+    fig.tight_layout(rect=[0, 0.03, 1, 0.95])
+```
+
+### Trying Different Initial Points
+
+After setting up everything, we are now ready to compare the three algorithms with different initial points.
+
+The learning rates observed to be working in this problem
+* SGD      - 0.0001
+* momentum - 0.0001
+* Adam     - 0.01
+
+We are going to use the same learning rate for different initial points considered for respective algorithms to keep the analysis simple and since we are not doing hyperparameter tuning. Feel free to download this [notebook](https://github.com/pranaymodukuru/OptimizationTrajectoryPlots/blob/master/OptimizationTrajectory_Initialization.ipynb) and trying out different hyperparameters and initial points.
+
+```python
+# Settings for optimizers
+epochs = [10000] * 3
+optims = ['sgd', 'mom', 'adam']
+lrs = [0.0001, 0.0001, 0.01]
+```
+###### Case 1 : A point close to minima
+```python
+#  A point closer to minima
+x = 2.5
+y = 2.
+compare_trajectories(x, y, epochs, optims, lrs)
+```
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<figure >
+
+
+  <a data-fancybox="" href="/img/optimization-trajectory-visualization/close_to_minima.png" >
+
+
+  <img src="/img/optimization-trajectory-visualization/close_to_minima.png" alt=""  >
+</a>
+
+
+
+</figure>
+
+
+All the three reach the global minima, lets move a little further and see what happens.
+
+###### Case 2 : Moving a little further
+```python
+# A little away in the same region
+x = 1.5
+y = 2.5
+compare_trajectories(x, y, epochs, optims, lrs)
+```
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<figure >
+
+
+  <a data-fancybox="" href="/img/optimization-trajectory-visualization/a_little_further.png" >
+
+
+  <img src="/img/optimization-trajectory-visualization/a_little_further.png" alt=""  >
+</a>
+
+
+
+</figure>
+
+
+Moving a little further from where we have started has made a huge difference on how an optimizer moves the parameters towards minimum. As seen in the figure above **adam** optimizer moves towards a local minimum and is stuck there, whereas **sgd** and **momentum** reach the global minimum. Things to notice, we are not changing the learning rate here, as we are focusing on effect of initialization on optimization.
+
+###### Case 3 : Moving a little further
+```python
+# Lower left region
+x = -4
+y = -4
+compare_trajectories(x, y, epochs, optims, lrs)
+```
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+<figure >
+
+
+  <a data-fancybox="" href="/img/optimization-trajectory-visualization/lower_left.png" >
+
+
+  <img src="/img/optimization-trajectory-visualization/lower_left.png" alt=""  >
+</a>
+
+
+
+</figure>
+
+
+(more example can be found in this [notebook](https://github.com/pranaymodukuru/OptimizationTrajectoryPlots/blob/master/OptimizationTrajectory_Initialization.ipynb))
+
+### Conclusion
+The initial point plays a crucial role in optimization problems. Here we are trying to solve a two dimensional problem which is fairly easy when compared to finding a minima when we have a large dataset and more than million parameters (dimensions).
+
+Although we are not tuning the hyperparameters here, we can effectively drive the optimization in right direction with the right set of hyperparameters.
+
+## References
+
+1. https://mitpress.mit.edu/books/optimization-machine-learning
+2. https://en.wikipedia.org/wiki/Test_functions_for_optimization
+3. http://benchmarkfcns.xyz/benchmarkfcns/bealefcn.html
+4. https://ruder.io/optimizing-gradient-descent/
+5. http://louistiao.me/notes/visualizing-and-animating-optimization-algorithms-with-matplotlib/
+6. https://communities.sas.com/t5/SAS-Communities-Library/Mathematical-Optimization-in-our-Daily-Lives/ta-p/504724# -->
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/deep-learning/">Deep Learning</a>
+  
+  <a class="badge badge-light" href="/tags/optimization/">Optimization</a>
+  
+  <a class="badge badge-light" href="/tags/first-post/">First post</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://pranaymodukuru.github.io/post/optimization-trajectory/&amp;text=Effect%20of%20Initialization%20on%20Optimization%20Trajectory%20in%202D" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://pranaymodukuru.github.io/post/optimization-trajectory/&amp;t=Effect%20of%20Initialization%20on%20Optimization%20Trajectory%20in%202D" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Effect%20of%20Initialization%20on%20Optimization%20Trajectory%20in%202D&amp;body=https://pranaymodukuru.github.io/post/optimization-trajectory/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://pranaymodukuru.github.io/post/optimization-trajectory/&amp;title=Effect%20of%20Initialization%20on%20Optimization%20Trajectory%20in%202D" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Effect%20of%20Initialization%20on%20Optimization%20Trajectory%20in%202D%20https://pranaymodukuru.github.io/post/optimization-trajectory/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=https://pranaymodukuru.github.io/post/optimization-trajectory/&amp;title=Effect%20of%20Initialization%20on%20Optimization%20Trajectory%20in%202D" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+
+
+
+
+
+  
+  
+  
+  
+  
+  <div class="media author-card content-widget-hr">
+    
+
+    <div class="media-body">
+      <h5 class="card-title"><a href="/authors/pranay-modukuru/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+  
+</ul>
+
+    </div>
+  </div>
+
+
+  
+
+
+
+
+
+<section id="comments">
+  
+    
+<div id="disqus_thread"></div>
+<script>
+  let disqus_config = function () {
+    
+    
+    
+  };
+  (function() {
+    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+      return;
+    }
+    var d = document, s = d.createElement('script'); s.async = true;
+    s.src = 'https://' + "Pranay" + '.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+</section>
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/project/denoising-auto-encoder/">Denoising Autoencoder</a></li>
+      
+      <li><a href="/project/hand-gesture-recognition/">Hand Gesture Recognition</a></li>
+      
+      <li><a href="/project/pmsm-rotor-temperature/">PMSM Rotor Temperature Prediction</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.4.8/mermaid.min.js" integrity="sha256-lyWCDMnMeZiXRi7Zl54sZGKYmgQs4izcT7+tKc+KUBk=" crossorigin="anonymous" title="mermaid"></script>
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    <script id="dsq-count-scr" src="https://Pranay.disqus.com/count.js" async></script>
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+
+  <p class="powered-by">
+    © Pranay Modukuru 2020 &middot; 
+
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

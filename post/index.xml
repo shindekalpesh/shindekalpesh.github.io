@@ -1,0 +1,978 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts | Pranay Modukuru</title>
+    <link>https://pranaymodukuru.github.io/post/</link>
+      <atom:link href="https://pranaymodukuru.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <description>Posts</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Pranay Modukuru 2020</copyright><lastBuildDate>Thu, 16 Apr 2020 16:45:57 +0200</lastBuildDate>
+    <image>
+      <url>https://pranaymodukuru.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Posts</title>
+      <link>https://pranaymodukuru.github.io/post/</link>
+    </image>
+    
+    <item>
+      <title>Customer Segmentation and Acquisition using Machine Learning</title>
+      <link>https://pranaymodukuru.github.io/post/customer-segmentation/</link>
+      <pubDate>Thu, 16 Apr 2020 16:45:57 +0200</pubDate>
+      <guid>https://pranaymodukuru.github.io/post/customer-segmentation/</guid>
+      <description>&lt;p&gt;
+&lt;a href=&#34;https://towardsdatascience.com/customer-segmentation-and-acquisition-using-machine-learning-a219ce0ec139?source=friends_link&amp;amp;sk=c7d662b4806a9e984f591d961e8d01e4&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;View post&lt;/a&gt; on Medium.&lt;/p&gt;
+&lt;!-- ## Introduction
+
+This blog post is about the final project that I did in Udacity’s Machine Learning Engineer Nanodegree program. This project is based on real-world data provided by Arvato Financial Solutions. The task is to understand the customer segments of a mail-order company which sells organic products and compare these segments with the general population data to predict probable future customers.
+
+This project is as close as it can get to real-world data science project. It was challenging and fun to do, and I learnt a lot by working on this. I decided to write this post about my learnings.
+
+Structure of this article:
+* What is Customer Segmentation
+* Project Introduction
+* Data Description and Analysis
+* Customer Segmentation using Unsupervised Learning
+* Predicting future customers using Supervised Learning
+
+## Customer Segmentation
+
+The process of grouping customers into sections of individuals who share common characteristics is called Customer Segmentation. This segmentation enables marketers to create targeted marketing messages for a specific group of customers which increases the chances of the person buying a product. It allows them to create and use specific communication channels to communicate with different segments to attract them. A simple example would be that the companies try to attract the younger generation through social media posts and older generation with maybe radio advertising. This helps the companies in establishing better customer relationships and their overall performance as an organisation.
+
+### Three most common types of Customer Segmentation
+Although there are more than three types of customer segmentation, we are going to look at the three most common strategies to do customer segmentation.
+
+#### 1. Demographic Segmentation
+The parameters such as age, gender, education, income, financial status, etc. come under the demographics of a person. This kind of segmentation is the most common approach to segment customers since this data is easy to obtain and analyse. Also, the demographics correspond to the most important characteristics of a person which will help the marketers in making informed decisions. For example, an airlines company can send emails about offers on economy class tickets to people coming under a low-income group, and about first-class tickets to high-income groups.
+
+#### 2. Geographic Segmentation
+
+As the name suggests, this kind of customer segmentation is done based on the physical location of a person. An example, in this case, would be a company which manufactures air conditioning systems. It cannot offer the same products to people in India and Iceland.
+
+#### 3. Behavioral Segmentation
+
+This kind of customer segmentation is based on the behavioural data of the customers. The grouping is done based on the purchasing habits, spending habits, brand interactions, browsing history or any other data which corresponds to behaviour or a person. All the targeted ads we see online today use some kind of behavioural segmentation to decide which ad to target to which customer.
+
+## Project Introduction
+
+The data which Arvato has provided in this project is the demographic data of their customers and the demographic data of the general population in Germany. So the task is to do customer segmentation based on the demographic data. The data includes 366 features corresponding to each person, which indicate age, gender, life stage, financial status, family status, family situation, house location, neighbourhood information. These features are only a few of 366 features which are there in the data.
+
+#### Problem Statement
+The problem statement is formulated as “Given the demographic data of a person, how can a mail-order company efficiently acquire new customers”.
+
+Given this statement, we can conclude that we have to compare the existing customer data and the general population data in someway to deduce a relationship between them. A manual way of doing this is to compare the statistics between the customers and the general population. For example, the mean and standard deviation of age can be compared to determine which age group is more likely to be a customer or the salaries can be compared to see what group of people fall into customers, etc.
+
+But this analysis would give out many results which again have to be analysed to come up with a final strategy. This process will require a lot of time, and by the time this analysis completes, the competitor in the market will capture most of the population, and the company will be out of business. Today with the advent of Machine Learning (ML) techniques used in every domain, this problem can also be addressed with the help of ML algorithms.
+
+## Data Description and Analysis
+
+As explained earlier, the data that Arvato provided contains demographics of existing customers and general population data. Additionally, two extra files have been provided for supervised learning section, one for training and one for testing. In the end, the predictions on the test set were to be submitted to Kaggle competition. Also, two additional files were provided, which contain information about feature values and their description. These two files are beneficial as all the feature names were in German and in short forms. Let us look at the information regarding the dataset.
+
+* General population — consists of demographic data for the general population in Germany corresponding to 891,211 people with each person having 366 features. (891211x366)
+* Customers Data — consists of demographic data for existing customers for the mail-order company corresponding to 191,652 people each with 369 features. The three extra features were company-specific regarding how did the place the order and how much quantity the order was. (191652x366)
+* Training data — consists of demographic data of 42,982 people with an additional column other than 366, indicating whether a person is a customer, to be used to train supervised learning models.
+* Test data — consists of demographic data of 42,833 people with the same 366 features but no targets.
+* Two additional files containing information about features
+
+#### Data Cleaning
+The data analysis started with replacing the misrecorded values to NaN values. These misrecorded values were determined using the information files given. For example, as per the description given in the Attribute information file the column ‘LP_STATS_FEIN’ needs to contain only values from ‘1–5’, but the data which is given contains ‘0’. This means that these values were recorded with errors and these values have to be treated as missing values.The attribute information file also contains information about what value corresponds to unknown values in some columns. This information was helpful in a way that all the misrepresented information can be converted to missing values.
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-columns-with-more-than-30-missing-values&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/customer-segmentation-acquisition/miss_colwise.png&#34; data-caption=&#34;Columns with more than 30% missing values&#34;&gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/customer-segmentation-acquisition/miss_colwise.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption data-pre=&#34;Figure &#34; data-post=&#34;:&#34; class=&#34;numbered&#34;&gt;
+    Columns with more than 30% missing values
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+
+After cleaning the misrecorded values, the next step is to deal with the missing values itself. An analysis of percentage missing values per column is performed to determine how many columns have missing values and if they did contain how much percentage. Figure 1 shows the columns which have more than 30% missing values. After this analysis, a threshold of 30 was selected to drop the columns. Later an analysis on missing values row-wise had to be performed in order to remove observations that have missing features. Here a threshold of 50 missing features per observation was selected to drop rows. After this analysis, the resulting shapes were:
+* General population - (737288x356)
+* Customers data - (13426x356) (neglecting the additional customer specific features)
+
+#### Feature Engineering
+There were certain categorical features which were encoded with numeric values (in fact many, but only a few were addressed for simplicity). These features were coded with binary encoding. Also, some features were containing too much information, for example, information about financial status and age in one single column. Such kind of features was identified and was either recoded to contain broader information or divided into two columns to contain both features separately. Any feature that contained more than 20 categories was either dropped or reconstructed into something useful with the help of the Attribute information file.
+
+Since many of the features contained categorical values dumped into a single column, this step has helped to simplify the data for the later steps. This step resulted in having 353 features.
+
+#### Imputing Missing Values
+
+Even after dropping columns and rows based on a certain threshold, we are left with data which still has missing values. This problem is addressed with the help of simple imputer, which fills in the missing data with some values which we can control. A general approach for numerical features would be to impute the missing values with the median or mean. But a more common approach for categorical features is to impute with most common values. Since data corresponds to population, so it is more sensitive to impute the missing values with the most common values.
+
+Now, the data is clean and ready for modelling, one final step is to scale the data, i.e. to bring all the features to the same range. This is done using a standard scaler.
+
+
+## Customer Segmentation using Unsupervised Learning
+
+For cluster segmentation there are two steps to be performed.
+* Dimensionality Reduction
+* Clustering
+
+#### Dimensionality Reduction
+
+Although we have 353 features, not all of them will have variation, i.e. some features might be the same for all the people. We can go through all the features here to see how many unique values are there per feature to select the features which have the required variation. But a more systematic approach would be to perform a certain analysis before dropping any column. Hence, Principal Component Analysis (PCA) has been performed to analyse the explained variance of the PCA components. PCA applies a linear transformation on the data to form a new coordinate system such that the components in the new coordinate system represent the variation in the data.
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-pca-explained-variance-plot&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/customer-segmentation-acquisition/pca.png&#34; data-caption=&#34;PCA Explained Variance plot&#34;&gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/customer-segmentation-acquisition/pca.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption data-pre=&#34;Figure &#34; data-post=&#34;:&#34; class=&#34;numbered&#34;&gt;
+    PCA Explained Variance plot
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+This analysis will help us determine how many features have enough variance to explain the variation in the data. An explained variance plot is used to select the number of components, i.e. the number of dimensions in the reduced coordinate space. As seen from the above plot, almost 90% of the variance can be explained with the help of approximately 150 components. Now, after the PCA transformation, we are left with 150 PCA components, each made up of a linear combination between the main features.
+
+#### Clustering
+
+After the dimensionality reduction, the next step is to divide the general population and customer population into different segments. K-Means clustering algorithm has been chosen for this task. Since it is simple and is apt for this task since it measures the distance between two observations to assign a cluster. This algorithm will help us in separating the general population with the help of the reduced features into a specified number of clusters and use this cluster information to understand the similarities in the general population and customer data. The number of clusters is selected to be ‘8’ with the help of an elbow plot.
+
+#### Cluster Analysis
+
+ 
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-cluster-proportions&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/customer-segmentation-acquisition/cluster_percentages.png&#34; data-caption=&#34;Cluster proportions&#34;&gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/customer-segmentation-acquisition/cluster_percentages.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption data-pre=&#34;Figure &#34; data-post=&#34;:&#34; class=&#34;numbered&#34;&gt;
+    Cluster proportions
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+The general population and the customer population have been clustered into segments. Figure 3 represents the proportions of the population coming into each cluster. The cluster distribution of the general population is uniform, meaning that the general population has been uniformly clustered into 8 segments. But the customer population seems to be coming from the clusters ‘0’, ‘3’, ‘4’ and ‘7’. We can further confirm this by taking the ratio of proportions of customers segments and general population segments, as shown in Figure 4.
+
+ 
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-cluster-proportions&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/customer-segmentation-acquisition/cluster_prop_ratio.png&#34; data-caption=&#34;Cluster proportions&#34;&gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/customer-segmentation-acquisition/cluster_prop_ratio.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption data-pre=&#34;Figure &#34; data-post=&#34;:&#34; class=&#34;numbered&#34;&gt;
+    Cluster proportions
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+As seen in Figure 4, if the ratio of proportions is greater than one, that means this cluster has a greater number of customers in the existing population and has the potential to have more future customers. If the ratio is less than one, that means these clusters have the least possibility to have future customers.
+
+
+A more detailed cluster analysis, which explains each cluster and corresponding components is also performed. It is documented in the [jupyter notebook](https://github.com/pranaymodukuru/Bertelsmann-Arvato-customer-segmentation/blob/master/Arvato%20Project%20Workbook.ipynb) used for this project. I am not explaining it here as this blog post is already too long.
+
+
+## Customer Acquisition using Supervised Learning
+
+After analysing the general population and customers data understanding which segments to concentrate on. We can further extend this analysis to make use of ML algorithms to take this decision too. Since we already have the customers data and general population data, we can combine them to form training data and train the ML models to make predictions about whether to approach a customer or not.
+
+In this case, supervised learning is done with the given train and test data. AUROC score has been selected as the evaluation metric since the problem is a highly imbalanced classification. The baseline performance was set with a Logistic Regression model, which was further improved with the help of Tree-based ensemble models. The AdaboostClassifier and XGBoostClassifier were the final selected models, whose predictions were submitted to Kaggle to attain a position in top 30 percentile (on the date of submission) with only two submissions.
+
+ 
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure id=&#34;figure-kaggle-leaderboard&#34;&gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/customer-segmentation-acquisition/kaggle_position.png&#34; data-caption=&#34;Kaggle Leaderboard&#34;&gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/customer-segmentation-acquisition/kaggle_position.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+  
+  
+  &lt;figcaption data-pre=&#34;Figure &#34; data-post=&#34;:&#34; class=&#34;numbered&#34;&gt;
+    Kaggle Leaderboard
+  &lt;/figcaption&gt;
+
+
+&lt;/figure&gt;
+
+
+## Conclusion
+
+The general population and customer population have been compared and segmented using an Unsupervised learning algorithm. We were able to determine which clusters have more customers and which are potential clusters to have probable customers. We have also used supervised learning algorithms to predict a possible future customer based on demographic data.
+
+The resulting analysis has produced good results to put me in the top 30 percentile in the competition Leader board. The top score in the Leaderboard is 0.81063, which is not far away from the score that I achieved (0.80027). There is scope for improvement in the data preparation steps.
+
+A more comprehensive explanation of each step and the reasons behind choices of algorithms and metrics has been given in the [project report](https://github.com/pranaymodukuru/Bertelsmann-Arvato-customer-segmentation/blob/master/Report.pdf) and all the steps are documented in this [notebook](https://github.com/pranaymodukuru/Bertelsmann-Arvato-customer-segmentation/blob/master/Arvato%20Project%20Workbook.ipynb).
+
+Finally, I would like to thank Arvato Financial Solutions and Udacity for providing this wonderful opportunity to work with real-world data. This helped me gain valuable experience and helped me use and improve my skills.
+
+
+## References
+1. https://www.business2community.com/customer-experience/4-types-of-customer-segmentation-all-marketers-should-know-02120397
+2. https://blog.alexa.com/types-of-market-segmentation/
+3. https://clevertap.com/blog/customer-segmentation-examples-for-better-mobile-marketing/
+4. https://www.datanovia.com/en/lessons/determining-the-optimal-number-of-clusters-3-must-know-methods/
+5. https://towardsdatascience.com/what-metrics-should-we-use-on-imbalanced-data-set-precision-recall-roc-e2e79252aeba --&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Concrete Compressive Strength Prediction using Machine Learning</title>
+      <link>https://pranaymodukuru.github.io/post/concrete-compressive-strength/</link>
+      <pubDate>Thu, 05 Mar 2020 01:53:52 +0100</pubDate>
+      <guid>https://pranaymodukuru.github.io/post/concrete-compressive-strength/</guid>
+      <description>&lt;p&gt;
+&lt;a href=&#34;https://towardsdatascience.com/concrete-compressive-strength-prediction-using-machine-learning-4a531b3c43f3?source=friends_link&amp;amp;sk=e1734fbde495aea664a85a1daa903881&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;View post&lt;/a&gt; on Medium.&lt;/p&gt;
+&lt;!-- ## Concrete Compressive Strength
+
+The Compressive Strength of Concrete determines the quality of Concrete. This is generally determined by a standard crushing test on a concrete cylinder. This requires engineers to build small concrete cylinders with different combinations of raw materials and test these cylinders for strength variations with a change in each raw material. The recommended wait time for testing the cylinder is 28 days to ensure correct results. This consumes a lot of time and requires lot of labour to prepare different prototypes and test them. Also, this method is prone to human error and one small mistake can cause the wait time to drastically increase.
+
+One way of reducing the wait time and reducing the amount of combinations to try is to make use of digital simulations, where we can provide information to the computer about what we know and the computer tries different combinations to predict the compressive strength. This way we can reduce the amount of combinations we can try physically and reduce the amount of time for experimentation. But, to design such software we have to know the relations between all the raw materials and how one material affects the strength. It is possible to derive mathematical equations and run simulations based on these equations, but we cannot expect the relations to be same in real-world. Also, these tests have been performed for many number of time now and we have enough real-world data that can be used for predictive modelling.
+
+In this article, we are going to analyse [Concrete Compressive Strength](https://archive.ics.uci.edu/ml/datasets/Concrete+Compressive+Strength) dataset and build Machine Learning models to predict the compressive strength. This [notebook](https://github.com/pranaymodukuru/Concrete-compressive-strength/blob/master/ConcreteCompressiveStrengthPrediction.ipynb) containing all the code can be used in parallel.
+
+### Dataset Description
+The dataset consists of 1030 instances with 9 attributes and has no missing values. There are 8 input variables and 1 output variable. Seven input variables represents the amount of a raw material (measured in $kg/m^3$) and one represents Age (in Days). The target variable is Concrete Compressive Strength measured in ($MPa$ - Mega Pascal). We shall explore the data to see how input features are affecting compressive strength.
+
+### Exploratory Data Analysis
+The first step in a Data Science project is to understand the data and gain insights from the data before doing any modelling. This includes checking for any missing values, plotting the features with respect to the target variable, observing the distributions of all the features and so on. Lets import the data and
+start analysing.
+
+Lets check the correlations between the input features, this will give an idea about how each variable is affecting all other variables. This can be done by calculating Pearson correlations between the features as shown in the code below.
+
+**Note** - Complete code used for generating plots (titles, axes labels, etc.) is not shown here for simplicity. The complete code can be viewed [here](https://github.com/pranaymodukuru/Concrete-compressive-strength/blob/master/ConcreteCompressiveStrengthPrediction.ipynb).
+
+```python
+corr = data.corr()
+sns.heatmap(corr, annot=True, cmap=&#39;Blues&#39;)
+```
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure &gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/pearson_coeff.png&#34; &gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/pearson_coeff.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+We can observe a high positive correlation between **compressive Strength** (CC_Strength) and **Cement**. this is true because strength concrete indeed increases with an increase in amount of cement used in preparing it. Also, **Age** and **Super Plasticizer** are other two factors influencing Compressive strength.
+
+There are other strong correlations between the fetures,
+* A strong negative correlation between **Super Plasticizer** and **Water**.
+* positive correlations between **Super Plasticizer** and **Fly Ash**, **Fine Aggregate**.
+
+These correlations are useful to understand the data in detail, as they give an idea about how a variable is affecting the other. We can further use a **pairplot** in seaborn to plot pair wise relations between all the features and distributions of features along the diagonal.
+
+```python
+sns.pairplot(data)
+```
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure &gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/pairplot.png&#34; &gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/pairplot.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+The pair plot gives a visual representation of correlations between all the features.
+
+We can plot scatter plots between **CC_Strength** and other features to see more complex relations.
+
+##### CC_Strength vs (Cement, Age, Water)
+
+```python
+sns.scatterplot(y=&#34;CC_Strength&#34;, x=&#34;Cement&#34;, hue=&#34;Water&#34;,
+                  size=&#34;Age&#34;, data=data, ax=ax, sizes=(50, 300))
+```
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure &gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/scatter_1.png&#34; &gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/scatter_1.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+The observations we can make from this plot,
+* **Compressive strength increases as amount of cement increases**, as the dots move up when we move towards right on the x-axis.
+* **Compressive strength increases with age** (as the size of dots represents the age), this not the case always but can be up to an extent.  
+* **Cement with less age requires more cement for higher strength**, as the smaller dots are moving up when we move towards right on x-axis.
+* **The older the cement is the more water it requires**, can be confirmed by observing the colour of the dots. Larger dots with dark colour indicate high age and more water.  
+* **Concrete strength increases when less water is used** in preparing it, since the dots on the lower side (y-axis) are darker and the dots on higher end (y-axis) are brighter.
+
+##### CC Strength vs (Fine aggregate, Super Plasticizer, Fly Ash)
+
+```python
+sns.scatterplot(y=&#34;CC_Strength&#34;, x=&#34;FineAggregate&#34;, hue=&#34;FlyAsh&#34;, size=&#34;Superplasticizer&#34;,
+                data=data, ax=ax, sizes=(50, 300))
+```
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure &gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/scatter_2.png&#34; &gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/scatter_2.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+Observations,
+* **Compressive strength decreases Fly ash increases**, as more darker dots are concentrated in the region representing low compressive strength.
+* **Compressive strength increases with Super plasticizer**, since larger the dot the higher they are in the plot.
+
+ We can visually understand 2D, 3D and max up to 4D plots (features represented by colour and size) as shown above, we can further use row wise and column wise plotting features by seaborn to do further analysis, but still we lack the ability to track all these correlations by ourselves. For this reason, we can turn to Machine Learning to capture these relations and give better insights into the problem.
+
+### Data preprocessing
+
+Before we fit machine learning models on the data, we need to split the data into train, test splits. The features can be rescaled to have a mean of zero and a standard deviation of 1 i.e. all the features fall into the same range.
+
+```python
+X = data.iloc[:,:-1]         # Features
+y = data.iloc[:,-1]          # Target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2)
+
+sc = StandardScaler()
+
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+```
+
+### Model Building
+After preparing the data, we can fit different models on the training data and compare their performance to choose the algorithm with good performance. As this is a regression problem, we can use RMSE (Root Mean Square Error) and $R^2$ score as evaluation metrics.
+
+#### 1. Linear Regression
+We will start with Linear Regression, since this is the go-to algorithm for any regression problem. The algorithm tries to form a linear relationship between the input features and the target variable i.e. it fits a straight line given by, $$y = W*X + b = \sum_{i=1}^{n} w_i * x_i + b$$ Where $w_i$ corresponds to the coefficient of feature $x_i$.
+
+The magnitude of these coefficients can be further controlled by using regularization terms to the cost functions. Adding the sum of the magnitudes of the coefficients will result in the coefficients being close to zero, this variation of linear regression is called **Lasso** Regression. Adding the sum of squares of the coefficients to the cost function will make the coefficients be in the same range and this variation is called **Ridge** Regression. Both these variations help in reducing the model complexity and therefore reducing the chances of overfitting on the data.
+
+```python
+# Importing models
+from sklearn.linear_model import LinearRegression, Lasso, Ridge
+
+# Linear Regression
+lr = LinearRegression()
+# Lasso Regression
+lasso = Lasso()
+# Ridge Regression
+ridge = Ridge()
+
+# Fitting models on Training data
+lr.fit(X_train, y_train)
+lasso.fit(X_train, y_train)
+ridge.fit(X_train, y_train)
+
+# Making predictions on Test data
+y_pred_lr = lr.predict(X_test)
+y_pred_lasso = lasso.predict(X_test)
+y_pred_ridge = ridge.predict(X_test)
+
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
+print(&#34;Model\t\t\t RMSE \t\t R2&#34;)
+print(&#34;&#34;&#34;LinearRegression \t {:.2f} \t\t{:.2f}&#34;&#34;&#34;.format(
+            np.sqrt(mean_squared_error(y_test, y_pred_lr)), r2_score(y_test, y_pred_lr)))
+print(&#34;&#34;&#34;LassoRegression \t {:.2f} \t\t{:.2f}&#34;&#34;&#34;.format(
+            np.sqrt(mean_squared_error(y_test, y_pred_lasso)), r2_score(y_test, y_pred_lasso)))
+print(&#34;&#34;&#34;RidgeRegression \t {:.2f} \t\t{:.2f}&#34;&#34;&#34;.format(
+            np.sqrt(mean_squared_error(y_test, y_pred_ridge)), r2_score(y_test, y_pred_ridge)))
+```
+
+###### Output
+
+| Model			       |  RMSE  |	  R2   |
+| ---------------- | ------ | ------ |
+| LinearRegression |	10.29 |		0.57 |
+| LassoRegression  |	10.68 |		0.54 |
+| RidgeRegression  | 	10.29 |	 	0.57 |
+
+There is not much difference between the performance with these three algorithms, we can plot the coefficients assigned by the three algorithms for the features with the following code.
+
+```python
+coeff_lr = lr.coef_
+coeff_lasso = lasso.coef_
+coeff_ridge = ridge.coef_
+
+labels = req_col_names[:-1]
+
+x = np.arange(len(labels))
+width = 0.3
+
+fig, ax = plt.subplots(figsize=(10,6))
+rects1 = ax.bar(x - 2*(width/2), coeff_lr, width, label=&#39;LR&#39;)
+rects2 = ax.bar(x, coeff_lasso, width, label=&#39;Lasso&#39;)
+rects3 = ax.bar(x + 2*(width/2), coeff_ridge, width, label=&#39;Ridge&#39;)
+
+ax.set_ylabel(&#39;Coefficient&#39;)
+ax.set_xlabel(&#39;Features&#39;)
+ax.set_title(&#39;Feature Coefficients&#39;)
+ax.set_xticks(x)
+ax.set_xticklabels(labels, rotation=45)
+ax.legend()
+
+def autolabel(rects):
+    &#34;&#34;&#34;Attach a text label above each bar in *rects*, displaying its height.&#34;&#34;&#34;
+    for rect in rects:
+        height = rect.get_height()
+        ax.annotate(&#39;{:.2f}&#39;.format(height), xy=(rect.get_x() + rect.get_width() / 2, height),
+                    xytext=(0, 3), textcoords=&#34;offset points&#34;, ha=&#39;center&#39;, va=&#39;bottom&#39;)
+autolabel(rects1)
+autolabel(rects2)
+autolabel(rects3)
+
+fig.tight_layout()
+plt.show()
+```
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure &gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/lr_coeffs.png&#34; &gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/lr_coeffs.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+As seen in the figure, Lasso regression pushes the coefficients towards zero and the coefficients with the normal Linear Regression and Ridge Regression are almost the same.
+
+We can further see how the predictions are by plotting the true values and predicted values,
+
+```python
+fig, (ax1, ax2, ax3) = plt.subplots(1,3, figsize=(12,4))
+
+ax1.scatter(y_pred_lr, y_test, s=20)
+ax1.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], &#39;k--&#39;, lw=2)
+ax1.set_ylabel(&#34;True&#34;)
+ax1.set_xlabel(&#34;Predicted&#34;)
+ax1.set_title(&#34;Linear Regression&#34;)
+
+ax2.scatter(y_pred_lasso, y_test, s=20)
+ax2.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], &#39;k--&#39;, lw=2)
+ax2.set_ylabel(&#34;True&#34;)
+ax2.set_xlabel(&#34;Predicted&#34;)
+ax2.set_title(&#34;Lasso Regression&#34;)
+
+ax3.scatter(y_pred_ridge, y_test, s=20)
+ax3.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], &#39;k--&#39;, lw=2)
+ax3.set_ylabel(&#34;True&#34;)
+ax3.set_xlabel(&#34;Predicted&#34;)
+ax3.set_title(&#34;Ridge Regression&#34;)
+
+fig.suptitle(&#34;True vs Predicted&#34;)
+fig.tight_layout(rect=[0, 0.03, 1, 0.95])
+```
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure &gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/lr_true_pred.png&#34; &gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/lr_true_pred.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+If the predicted values and the target values are equal, then the points on the scatter plot will lie on the straight line. As we can see here, non of the model predicts the Compressive Strength correctly.
+
+#### 2. Decision Trees
+
+A Decision Tree Algorithm represents the data with a tree like structure, where each node represents a decision taken on a feature. This algorithm would give better performance in this case, since we have a lot of zeros in some of the input features as seen from their distributions in the pair plot above. This would help the decision trees build trees based on some conditions on features which can further improve performance.
+
+```python
+from sklearn.tree import DecisionTreeRegressor
+
+dtr = DecisionTreeRegressor()
+
+dtr.fit(X_train, y_train)
+
+y_pred_dtr = dtr.predict(X_test)
+
+print(&#34;Model\t\t\t\t RMSE  \t\t R2&#34;)
+print(&#34;&#34;&#34;Decision Tree Regressor \t {:.2f} \t\t{:.2f}&#34;&#34;&#34;.format(
+            np.sqrt(mean_squared_error(y_test, y_pred_dtr)), r2_score(y_test, y_pred_dtr)))
+
+plt.scatter(y_test, y_pred_dtr)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], &#39;k--&#39;, lw=2)
+plt.xlabel(&#34;Predicted&#34;)
+plt.ylabel(&#34;True&#34;)
+plt.title(&#34;Decision Tree Regressor&#34;)
+plt.show()
+```
+
+| Model			              |  RMSE  |  R2   |
+| ----------------------- | ------ | ----- |
+| Decision Tree Regressor |	 7.31  |	0.78 |
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure &gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/dtr_true_pred.png&#34; &gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/dtr_true_pred.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+The Root Mean Squared Error (RMSE) has come down from 10.29 to 7.31, so the Decision Tree Regressor has improved the performance by a significant amount. This can be observed in the plot as well as more points are closer to the line.
+
+#### 3. Random Forests
+Since Using a Decision Tree Regressor has improved our performance, we can further improve the performance by ensembling more trees. Random Forest Regressor trains randomly initialized trees with random subsets of data sampled from the training data, this will make our model more robust.
+
+```python
+from sklearn.ensemble import RandomForestRegressor
+
+rfr = RandomForestRegressor(n_estimators=100)
+
+rfr.fit(X_train, y_train)
+
+y_pred_rfr = rfr.predict(X_test)
+
+print(&#34;Model\t\t\t\t RMSE  \t\t R2&#34;)
+print(&#34;&#34;&#34;Random Forest Regressor \t {:.2f} \t\t{:.2f}&#34;&#34;&#34;.format(
+            np.sqrt(mean_squared_error(y_test, y_pred_rfr)), r2_score(y_test, y_pred_rfr)))
+
+plt.scatter(y_test, y_pred_rfr)
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], &#39;k--&#39;, lw=2)
+plt.xlabel(&#34;Predicted&#34;)
+plt.ylabel(&#34;True&#34;)
+plt.title(&#34;Random Forest Regressor&#34;)
+plt.show()
+```
+
+| Model			              |  RMSE  |  R2   |
+| ----------------------- | ------ | ----- |
+| Random Forest Regressor |	 5.08  |	0.89 |
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure &gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/rfr_true_pred.png&#34; &gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/rfr_true_pred.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+The RMSE has further reduced by ensembling multiple trees. We can plot the feature importance&#39;s for tree based models. The feature importance&#39;s show how important a feature is for a model when making a prediction.
+
+```python
+
+feature_dtr = dtr.feature_importances_
+feature_rfr = rfr.feature_importances_
+
+labels = req_col_names[:-1]
+
+x = np.arange(len(labels))
+width = 0.3
+
+fig, ax = plt.subplots(figsize=(10,6))
+rects1 = ax.bar(x-(width/2), feature_dtr, width, label=&#39;Decision Tree&#39;)
+rects2 = ax.bar(x+(width/2), feature_rfr, width, label=&#39;Random Forest&#39;)
+
+ax.set_ylabel(&#39;Importance&#39;)
+ax.set_xlabel(&#39;Features&#39;)
+ax.set_title(&#39;Feature Importance&#39;)
+ax.set_xticks(x)
+ax.set_xticklabels(labels, rotation=45)
+ax.legend(loc=&#34;upper left&#34;, bbox_to_anchor=(1,1))
+
+autolabel(rects1)
+autolabel(rects2)
+
+fig.tight_layout()
+plt.show()
+```
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure &gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/tree_feat_imps.png&#34; &gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/tree_feat_imps.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+Cement and Age are treated as the most important features by tree based models. Fly ash, Coarse and Fine aggregates are least important factors when predicting the strength of Concrete.
+
+#### Comparison
+
+Finally, lets compare the results of all the algorithms.
+
+```python
+
+models = [lr, lasso, ridge, dtr, rfr]
+names = [&#34;Linear Regression&#34;, &#34;Lasso Regression&#34;, &#34;Ridge Regression&#34;,
+         &#34;Decision Tree Regressor&#34;, &#34;Random Forest Regressor&#34;]
+rmses = []
+
+for model in models:
+    rmses.append(np.sqrt(mean_squared_error(y_test, model.predict(X_test))))
+
+x = np.arange(len(names))
+width = 0.3
+
+fig, ax = plt.subplots(figsize=(10,7))
+rects = ax.bar(x, rmses, width)
+ax.set_ylabel(&#39;RMSE&#39;)
+ax.set_xlabel(&#39;Models&#39;)
+ax.set_title(&#39;RMSE with Different Algorithms&#39;)
+ax.set_xticks(x)
+ax.set_xticklabels(names, rotation=45)
+autolabel(rects)
+fig.tight_layout()
+plt.show()
+```
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+&lt;figure &gt;
+
+
+  &lt;a data-fancybox=&#34;&#34; href=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/final.png&#34; &gt;
+
+
+  &lt;img src=&#34;https://pranaymodukuru.github.io/img/concrete-compressive-strength-imgs/final.png&#34; alt=&#34;&#34;  &gt;
+&lt;/a&gt;
+
+
+
+&lt;/figure&gt;
+
+
+### Conclusion
+We have analysed the Compressive Strength Data and used Machine Learning to predict the Compressive Strength of Concrete. We have used Linear Regression and its variations, Decision Trees and Random Forests to make predictions and compared their performance. Random Forest Regressor has the lowest RMSE and is a good choice for this problem. Also, we can further improve the performance of the algorithm by tuning the hyperparameters by performing a grid search or random search.  
+
+### References
+
+1. I-Cheng Yeh, &#34;[Modeling of strength of high performance concrete using artificial neural networks](https://www.sciencedirect.com/science/article/abs/pii/S0008884698001653),&#34; Cement and Concrete Research, Vol. 28, No. 12, pp. 1797-1808 (1998).
+2. Ahsanul Kabir, Md Monjurul Hasan, Khasro Miah, &#34;[Strength Prediction Model for Concrete](https://www.researchgate.net/publication/258255660_Strength_Prediction_Model_for_Concrete)&#34;, ACEE Int. J. on Civil and Environmental Engineering, Vol. 2, No. 1, Aug 2013.
+3. https://archive.ics.uci.edu/ml/datasets/Concrete+Compressive+Strength --&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
