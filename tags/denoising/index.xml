@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Denoising | Pranay Modukuru</title>
+    <link>https://pranaymodukuru.github.io/tags/denoising/</link>
+      <atom:link href="https://pranaymodukuru.github.io/tags/denoising/index.xml" rel="self" type="application/rss+xml" />
+    <description>Denoising</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Pranay Modukuru 2020</copyright><lastBuildDate>Sun, 01 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://pranaymodukuru.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Denoising</title>
+      <link>https://pranaymodukuru.github.io/tags/denoising/</link>
+    </image>
+    
+    <item>
+      <title>Denoising Autoencoder</title>
+      <link>https://pranaymodukuru.github.io/project/denoising-auto-encoder/</link>
+      <pubDate>Sun, 01 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://pranaymodukuru.github.io/project/denoising-auto-encoder/</guid>
+      <description>&lt;p&gt;Removing noise from images has been a reasonably tough task until the deep learning based auto encoders transformed the image processing field. I used a Deep Convolutional Autoencoder to remove coffe stains, footprints, marks resulting from folding or wrinkles from scanned office documents.&lt;/p&gt;
+&lt;h4 id=&#34;please-click-on-links-below-for-more-details&#34;&gt;Please click on links below for more details&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/pranaymodukuru/DenoisingAutoencoder&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Project&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&#34;https://github.com/pranaymodukuru/DenoisingAutoencoder/blob/master/DenoisingAutoEncoder_NoisyOfficeData.ipynb&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Code&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
