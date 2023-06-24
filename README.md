@@ -1,2 +1,3 @@
-# pranaymodukuru.github.io
-My [portfolio](https://pranaymodukuru.github.io/)
+# My website:
+
+https://shindekalpesh.github.io/
